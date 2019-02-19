@@ -14,10 +14,10 @@ class SystemInfo:
     }
     timeStamp = 0
 
-    def __init__(self):
+    def __init__(self): #Constructor method for a python class
         self.timeStamp = datetime.datetime.utcnow()
     
-    def __getCpuInfo(self):
+    def __getCpuInfo(self): #Clips the CPU information from the file cpuinfo 
         with open("/proc/cpuinfo","r") as i:
             cpuInfo = i.readlines()
             for i in cpuInfo:
@@ -25,16 +25,15 @@ class SystemInfo:
                 if("model name" in i):
                     self.infoDict["machine_model"] = i
 
-    def __getMemoryInfo(self):
+    def __getMemoryInfo(self): #Clips the Memory infofrom  the meminfo file
         with open("/proc/meminfo", "r") as i:
             memInfo = i.readlines()
             self.infoDict["memory"] = memInfo[0]
             self.infoDict["freeMemory"] = memInfo[1]
             
-    def __operatingfSystemDistribution(self):
         self.infoDict["osDist"] = p.dist()
         
-    def __systemInfo(self):
+    def __systemInfo(self): 
         self.infoDict["system"] = p.system()
 
     def __architecture(self):
@@ -46,7 +45,7 @@ class SystemInfo:
     def __node(self):
         self.infoDict["node"] = p.node()
 
-    def showAllInfo(self):
+    def showAllInfo(self): #public function that is called to visualize the information in the dictionary
         self.__getCpuInfo()
         self.__getMemoryInfo()
         self.__operatingfSystemDistribution()
